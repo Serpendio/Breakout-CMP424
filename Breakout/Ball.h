@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include "json.hpp"
 
 class GameManager;  // forward declaration
 
@@ -14,6 +14,8 @@ public:
     void render();
     void setVelocity(float coeff, float duration);
     void setFireBall(float duration);
+
+    nlohmann::json getData();
 
 private:
     sf::CircleShape _sprite;

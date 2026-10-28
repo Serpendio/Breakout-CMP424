@@ -19,3 +19,11 @@ sf::FloatRect Brick::getBounds() const
 {
     return _shape.getGlobalBounds();
 }
+
+nlohmann::json Brick::getData()
+{
+    return {
+        { "posX", _shape.getPosition().x },
+        { "posY", _shape.getPosition().y }
+    };
+}

@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "CONSTANTS.h"
+#include "json.hpp"
 
 class Paddle
 {
@@ -15,10 +16,12 @@ public:
     void render();
     sf::FloatRect getBounds() const;
     void setWidth(float coeff, float duration);
+    nlohmann::json getData();
+
+protected:
+    virtual void handleControls(float dt);
 
 private:
-
-
     sf::RenderWindow* _window;
     sf::RectangleShape _sprite;
     float _width = PADDLE_WIDTH;

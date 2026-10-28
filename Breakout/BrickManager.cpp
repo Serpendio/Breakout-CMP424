@@ -58,3 +58,15 @@ int BrickManager::checkCollision(sf::CircleShape& ball, sf::Vector2f& direction)
     }
     return collisionResponse;
 }
+
+nlohmann::json BrickManager::getWorldData()
+{
+    std::vector<nlohmann::json> bricks;
+
+    for (auto& brick : _bricks)
+    {
+        bricks.push_back(brick.getData());
+    }
+
+    return bricks;
+}

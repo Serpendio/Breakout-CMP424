@@ -2,6 +2,7 @@
 #include <vector>
 #include "Brick.h"
 #include <SFML/Graphics.hpp>
+#include "json.hpp"
 
 class GameManager;
 
@@ -11,6 +12,7 @@ public:
     void createBricks(int rows, int cols, float brickWidth, float brickHeight, float spacing);
     void render();
     int checkCollision(sf::CircleShape& ball, sf::Vector2f& direction);
+    nlohmann::json getWorldData();
 
 private:
     std::vector<Brick> _bricks;

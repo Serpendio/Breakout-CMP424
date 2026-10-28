@@ -17,7 +17,7 @@ void Paddle::moveLeft(float dt)
 {
     float position = _sprite.getPosition().x;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && position > 0)
+    if (position > 0)
     {
         _sprite.move(sf::Vector2f(-dt * PADDLE_SPEED, 0));
     }
@@ -27,7 +27,7 @@ void Paddle::moveRight(float dt)
 {
     float position = _sprite.getPosition().x;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) && position < _window->getSize().x - _width)
+    if (position < _window->getSize().x - _width)
     {
         _sprite.move(sf::Vector2f(dt * PADDLE_SPEED, 0));
     }
@@ -35,6 +35,8 @@ void Paddle::moveRight(float dt)
 
 void Paddle::update(float dt)
 {
+    handleControls(dt);
+
     if (_timeInNewSize > 0)
     {
         _timeInNewSize -= dt;
@@ -64,4 +66,19 @@ void Paddle::setWidth(float coeff, float duration)
     _timeInNewSize = duration;
     float newX = _sprite.getPosition().x + (_width - PADDLE_WIDTH) / 2;
     _sprite.setPosition(newX, _sprite.getPosition().y);
+}
+
+void Paddle::handleControls(float dt)
+{
+    // move paddle
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) moveRight(dt);
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) moveLeft(dt);
+}
+
+nlohmann::json Paddle::getData()
+{
+    return {
+        { "posX", _sprite.getPosition().x },
+        { "posY", _sprite.getPosition().y }
+    };
 }

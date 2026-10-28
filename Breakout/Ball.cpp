@@ -1,5 +1,6 @@
 #include "Ball.h"
 #include "GameManager.h" // avoid cicular dependencies
+#include "json.hpp"
 
 Ball::Ball(sf::RenderWindow* window, float velocity, GameManager* gameManager)
     : _window(window), _velocity(velocity), _gameManager(gameManager),
@@ -113,4 +114,15 @@ void Ball::setFireBall(float duration)
     }
     _isFireBall = false;
     _timeWithPowerupEffect = 0.f;    
+}
+
+nlohmann::json Ball::getData()
+{
+    return {
+        { "posX", _sprite.getPosition().x },
+        { "posY", _sprite.getPosition().y },
+        { "dirX", _direction.x },
+        { "dirY", _direction.y },
+        { "velocity", _velocity },
+    };
 }
